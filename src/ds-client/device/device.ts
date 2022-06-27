@@ -1,5 +1,7 @@
-class Device<T> implements IDevice<T> {
-  private jobs: Job<T>[] = [];
+import { Job } from '../jobs/job';
+
+export class Device implements IDevice {
+  readonly jobs: Job[] = [];
   private id: string;
   private size: number;
 
@@ -17,7 +19,7 @@ class Device<T> implements IDevice<T> {
     this.addJob(job);
   }
 
-  addJob(item: Job<T>) {
+  addJob(item: Job) {
     if (this.size === this.getCapacity()) {
       throw new Error(
         'Device has reached max capacity, you cannot add more jobs',
@@ -34,5 +36,9 @@ class Device<T> implements IDevice<T> {
       .indexOf(id);
 
     this.jobs.slice(index, 1);
+  }
+
+  getDeviceId() {
+    return this.id;
   }
 }

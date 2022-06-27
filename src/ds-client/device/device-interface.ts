@@ -1,6 +1,6 @@
-interface IDevice<T> {
+interface IDevice {
   createJob(id: string): void;
-  addJob(item: Job<T>): void;
+  addJob(item: Job): void;
   removeJob(id: string): void;
   getCapacity(): number;
 }

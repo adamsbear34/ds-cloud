@@ -1,7 +1,7 @@
-interface IJob<T> {
-  enqueue(item: T): void;
+interface IJob {
+  enqueue(item: any): void;
 
-  dequeue(): T | undefined;
+  dequeue(): any | undefined;
 
   size(): number;
 }
