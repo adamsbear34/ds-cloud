@@ -1,4 +1,5 @@
 export class RegisterDeviceRequest {
-  readonly size: number;
+  readonly deviceSize: number;
   readonly id: string;
+  readonly jobIds: string[];
 }

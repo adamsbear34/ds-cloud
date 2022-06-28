@@ -1,4 +1,4 @@
-import { Job } from '../jobs/job';
+import { Job } from '../../job-manager/entities/job';
 
 export class Device implements IDevice {
   readonly jobs: Job[] = [];
@@ -22,7 +22,7 @@ export class Device implements IDevice {
   addJob(item: Job) {
     if (this.size === this.getCapacity()) {
       throw new Error(
-        'Device has reached max capacity, you cannot add more jobs',
+        'Device has reached max capacity, you cannot add more job-manager',
       );
     }
     this.jobs.push(item);
