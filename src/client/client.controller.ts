@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Headers } from '@nestjs/common';
 import { ClientService } from './client.service';
 import { AddTransactionRequest } from './dto/add-transaction.request';
 
@@ -17,8 +17,13 @@ export class ClientController {
   }
 
   @Get('transaction/:id')
-  async getDataInQueue(@Param('id', ) id: string) {
-    const queue = await this.clientService.getDataInQueue(id);
-    return { data: queue.data };
+  async getDataInQueue(@Param('id') id: string, @Headers() headers) {
+    const bay_status = headers.b_status;
+    if (bay_status == 0) {
+      const queue = await this.clientService.getDataInQueue(id);
+      return { data: queue };
+    } else {
+      return { message: 'Bay is busy' };
+    }
   }
 }

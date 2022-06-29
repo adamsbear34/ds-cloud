@@ -1,10 +1,14 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { DsClientModule } from './ds-client/ds-client.module';
-import { DsClinetService } from './ds-client/ds-clinet.service';
 import { BullModule } from '@nestjs/bull';
 import { ClientModule } from './client/client.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { DeviceModule } from './device/device.module';
+import { VariableModule } from './variable/variable.module';
+import { UserModule } from './user/user.module';
+import { ClusterModule } from './cluster/cluster.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -14,10 +18,15 @@ import { ClientModule } from './client/client.module';
         port: 6379,
       },
     }),
-    DsClientModule,
+    MongooseModule.forRoot('mongodb://localhost/ds_cloud'),
     ClientModule,
+    DeviceModule,
+    VariableModule,
+    UserModule,
+    ClusterModule,
+    AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService, DsClinetService],
+  providers: [AppService],
 })
 export class AppModule {}

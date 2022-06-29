@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
 
@@ -16,12 +16,16 @@ export class ClientService {
   }
 
   async getDataInQueue(id: string) {
-    const job = this.dsTrnQueue.getJob(id);
-    let res = null;
-    const data = job.then((job) => {
-      res = job.data;
-      job.remove();
-    });
-    return res;
+    const job = await this.dsTrnQueue.getJob(id);
+
+    if (!job)
+      throw new HttpException(
+        `Job with id ${id} not found`,
+        HttpStatus.NOT_FOUND,
+      );
+
+    const reponse = { job: job.data };
+    job.remove();
+    return reponse;
   }
 }
